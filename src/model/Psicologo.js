@@ -28,3 +28,5 @@ const Psicologos = db.define("psicologos", {
         tableName: "psicologos"
     }
 );
+
+module.exports = Psicologos;
