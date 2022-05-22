@@ -39,7 +39,7 @@ const psicologosController = {
             },
             {
                 where: {
-                    psico_id: id
+                    id_psicologo: id
                 }
             }
         )
