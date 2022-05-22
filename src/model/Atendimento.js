@@ -37,4 +37,4 @@ const Atendimentos = db.define("atendimentos" ,{
     }
 );
 
-module.exports = Atendimento;
+module.exports = Atendimentos;
