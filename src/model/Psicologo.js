@@ -10,6 +10,9 @@ const Psicologos = db.define("psicologos", {
     nome:{
         type: DataTypes.STRING,
     },
+    email:{
+        type: DataTypes.STRING,
+    },
     senha:{
         type: DataTypes.STRING,
         unique: true,
