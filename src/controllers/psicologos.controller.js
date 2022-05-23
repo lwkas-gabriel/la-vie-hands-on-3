@@ -1,4 +1,5 @@
-const { Psicologos } = require('../model')
+const { Psicologos } = require('../model');
+const bcrypt = require("bcryptjs");
 
 const psicologosController = {
     async cadastrarPsicologo(req, res) {
