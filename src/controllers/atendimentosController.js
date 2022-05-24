@@ -1,19 +1,19 @@
-const { Atendimentos, Psicologos, Pacientes } = require('../model');
+const { Atendimento, Psicologo, Paciente } = require('../model');
 
 const atendimentosController = {
     async cadastrar(req, res) {
         const { data_atendimento, observacao, paciente_id } = req.body;
-        const { id } = req.auth;
-        const existsUser = await Pacientes.count({ where: { paciente_id } });
+        const { id_psicologo } = req.auth;
+        const existsUser = await Paciente.count({ where: { paciente_id } });
 
             if (!existsUser) {
                 return res.status(400).json("Paciente não cadastrado na base de dados!");
             }
-            const novoAtendimento = await Atendimentos.create({
+            const novoAtendimento = await Atendimento.create({
                 data_atendimento,
                 observacao,
                 id_paciente,
-                id_psicologo: id
+                id_psicologo: id_psicologo
             });
 
             res.status(201).json(novoAtendimento);
@@ -21,14 +21,14 @@ const atendimentosController = {
 
 
     async listarAtendimentos(req, res) {
-        const atendimentos = await Atendimentos.findAll({
+        const atendimentos = await Atendimento.findAll({
             include: [
                 {
-                    model: Psicologos,
+                    model: Psicologo,
                     attributes: ['nome']
                 },
                 {
-                    model: Pacientes
+                    model: Paciente
                 }
             ]
         });
@@ -38,14 +38,14 @@ const atendimentosController = {
     async listarId(req, res) {
         const { id } = req.params;
 
-        const atendimento = await Atendimentos.findByPk(id, {
+        const atendimento = await Atendimento.findByPk(id, {
             include: [
                 {
-                    model: Psicologos,
+                    model: Psicologo,
                     attributes: ['nome']
                 },
                 {
-                    model: Pacientes
+                    model: Paciente
                 }
             ]
         });

@@ -1,13 +1,13 @@
-const { Pacientes } = require('../model');
+const { Paciente } = require('../model');
 
 const PacientesController = {
   async listarTodos(req, res) {
-    const pacientes = await Pacientes.findAll();
+    const pacientes = await Paciente.findAll();
     res.status(200).json(pacientes);
   },
   async buscarPorId(req, res) {
     const { id } = req.params;
-    const paciente = await Pacientes.findByPk(id);
+    const paciente = await Paciente.findByPk(id);
     if (paciente) {
       res.status(200).json(paciente);
     } else {
@@ -16,7 +16,7 @@ const PacientesController = {
   },
   async cadastrar(req, res) {
     const { nome, email, idade } = req.body;
-    const novoPaciente = await Pacientes.create({
+    const novoPaciente = await Paciente.create({
       nome,
       email,
       idade,
@@ -24,10 +24,10 @@ const PacientesController = {
     res.status(201).json(novoPaciente);
   },
   async atualizar(req, res) {
-    const { id } = req.params;
+    const { id_paciente } = req.params;
     const { nome, email, idade } = req.body;
-    if(!id) return res.status(400).json("Id não encontrado");
-    await Pacientes.update(
+    if(!id_paciente) return res.status(400).json("Id não encontrado");
+    await Paciente.update(
       {
         nome,
         email,
@@ -35,19 +35,19 @@ const PacientesController = {
       },
       {
         where: {
-          id_paciente: id,
+          id_paciente: id_paciente
         },
       }
     );
-    const pacienteAtualizado = await Pacientes.findByPk(id);
+    const pacienteAtualizado = await Paciente.findByPk(id);
     res.status(200).json(pacienteAtualizado);
   },
   async deletar(req, res) {
-    const { id } = req.params
-    if (!id) return res.status(404).json("Id não encontrado")
-    await Pacientes.destroy({
+    const { id_paciente } = req.params
+    if (!id_paciente) return res.status(404).json("Id não encontrado")
+    await Paciente.destroy({
         where: {
-            id_paciente: id
+            id_paciente: id_paciente
         }
     })
     res.status(204).json("Paciente excluido com sucesso")
