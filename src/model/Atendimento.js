@@ -4,9 +4,10 @@ const { DataTypes } = require("sequelize");
 const Paciente = require("./Paciente");
 const Psicologo = require("./Psicologo");
 
-const Atendimentos = db.define("atendimentos" ,{
+const Atendimento = db.define("atendimentos" ,{
     paciente_id:{
         type:DataTypes.INTEGER,
+        primaryKey: true,
         references:{
             model: Paciente,
             key: "id_paciente",
@@ -14,12 +15,13 @@ const Atendimentos = db.define("atendimentos" ,{
     },
     psicologo_id:{
         type: DataTypes.INTEGER,
+        primaryKey: true,
         references:{
             model: Psicologo,
             key: "id_psicologo",
         }
     },
-    data_paciente:{
+    data_atendimento:{
         type: DataTypes.DATE,
     },
     observacao:{
@@ -37,4 +39,4 @@ const Atendimentos = db.define("atendimentos" ,{
     }
 );
 
-module.exports = Atendimentos;
+module.exports = Atendimento;

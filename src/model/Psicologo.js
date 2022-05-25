@@ -1,7 +1,7 @@
 const db = require("../database");
 const { DataTypes } = require("sequelize");
 
-const Psicologos = db.define("psicologos", {
+const Psicologo = db.define("psicologos", {
     id_psicologo:{
         type: DataTypes.INTEGER,
         primaryKey: true,
@@ -32,4 +32,4 @@ const Psicologos = db.define("psicologos", {
     }
 );
 
-module.exports = Psicologos;
+module.exports = Psicologo;

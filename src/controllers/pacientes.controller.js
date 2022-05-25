@@ -6,8 +6,8 @@ const PacientesController = {
     res.status(200).json(pacientes);
   },
   async buscarPorId(req, res) {
-    const { id } = req.params;
-    const paciente = await Paciente.findByPk(id);
+    const { id_paciente } = req.params;
+    const paciente = await Paciente.findByPk(id_paciente);
     if (paciente) {
       res.status(200).json(paciente);
     } else {
@@ -39,7 +39,7 @@ const PacientesController = {
         },
       }
     );
-    const pacienteAtualizado = await Paciente.findByPk(id);
+    const pacienteAtualizado = await Paciente.findByPk(id_paciente);
     res.status(200).json(pacienteAtualizado);
   },
   async deletar(req, res) {

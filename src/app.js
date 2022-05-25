@@ -2,12 +2,15 @@ const express = require("express"); //importando express
 const routes = require("./routes"); //importando o routes
 const handleError = require("./middlewares/handleError");
 const db = require("./database"); // importando o banco de dados
+const auth = require("./middlewares/auth");
 
 const app = express();
 
 db.hasConnection();
 
 app.use(express.json());
+
+//app.use(auth);
 
 app.use(routes);
 
