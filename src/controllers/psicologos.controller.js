@@ -29,15 +29,18 @@ const psicologosController = {
     },
     async atualizarPsico(req, res) {
         const { id_psicologo } = req.params
-        const { nome, email, apresentacao } = req.body
+        const { nome, senha, email, apresentacao } = req.body
         console.log(id_psicologo);
         //const newSenha = bcrypt.hashSync(req.body.senha, 10)
-        if (!id_psicologo) return res.status(400).json('Id não encontrado.')
+        const psicologo = await Psicologo.findByPk(id_psicologo)
+        if (!psicologo) return res.status(400).json('Id não encontrado.')
+
+        const newSenha = bcrypt.hashSync(senha, 10)
         const psicoAtualizado = await Psicologo.update(
             {
                 nome,
                 email,
-                //senha: newSenha,
+                senha: newSenha,
                 apresentacao
             },
             {
@@ -51,13 +54,16 @@ const psicologosController = {
     },
     async deletarPsico(req, res) {
         const { id_psicologo } = req.params
-        if (!id_psicologo) return res.status(404).json('Id não encontrado.')
-        await Psicologos.destroy({
+        
+        const psicologo = await Psicologo.findByPk(id_psicologo)
+        if (!psicologo) return res.status(400).json('Id não encontrado.')
+        await Psicologo.destroy({
             where: {
                 id_psicologo: id_psicologo
             }
         })
-        res.status(204).json('Psicologo deletado do banco de dados.')
+        //204 é no content - meio doido não ter um feedback de exclusão, mas tudo bem
+        res.status(204).send("excluido");
     },
 }
 
